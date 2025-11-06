@@ -6,15 +6,17 @@ import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { Button } from "@/components/ui/button";
 import { Pencil, MessageCircle, Mail, Heart } from "lucide-react";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { galleryImages, getNextImages } from "@/data/galleryImages";
 
 const Home = () => {
   const [currentImages, setCurrentImages] = useState<typeof galleryImages>([]);
   const [nextImages, setNextImages] = useState<typeof galleryImages>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const nextImagesRef = useRef<typeof galleryImages>([]);
 
   // Inicializar imagens
   useEffect(() => {
@@ -23,8 +25,14 @@ const Home = () => {
       setCurrentImages(initial);
       const next = getNextImages(5, 5);
       setNextImages(next);
+      nextImagesRef.current = next;
     }
   }, []);
+
+  // Atualizar ref quando nextImages mudar
+  useEffect(() => {
+    nextImagesRef.current = nextImages;
+  }, [nextImages]);
 
   // Loop automático a cada 8 segundos
   useEffect(() => {
@@ -35,16 +43,20 @@ const Home = () => {
       
       // Após a animação, trocar as imagens
       setTimeout(() => {
-        const newIndex = (currentIndex + 5) % galleryImages.length;
-        setCurrentIndex(newIndex);
-        setCurrentImages(nextImages);
-        setNextImages(getNextImages(newIndex + 5, 5));
-        setIsTransitioning(false);
+        setCurrentIndex((prevIndex) => {
+          const newIndex = (prevIndex + 5) % galleryImages.length;
+          const newNextImages = getNextImages(newIndex + 5, 5);
+          // Usar ref para acessar o valor atual sem causar re-renders
+          setCurrentImages(nextImagesRef.current);
+          setNextImages(newNextImages);
+          setIsTransitioning(false);
+          return newIndex;
+        });
       }, 1500); // Duração da animação
     }, 8000); // Muda a cada 8 segundos
 
     return () => clearInterval(interval);
-  }, [currentIndex, currentImages.length, nextImages]);
+  }, [currentImages.length]); // Removido nextImages das dependências usando ref
 
   return (
     <div className="min-h-screen bg-background font-sans">
@@ -64,7 +76,6 @@ const Home = () => {
                   height={300}
                   className="w-full h-auto"
                   priority
-                  unoptimized
                 />
               </div>
             </div>
@@ -116,6 +127,8 @@ const Home = () => {
                           isTransitioning ? 'opacity-0 scale-110 blur-sm duration-1000' : 'opacity-100 scale-100 blur-0 duration-1000'
                         }`}
                         sizes="(max-width: 768px) 100vw, 33vw"
+                        loading={index === 0 ? "eager" : "lazy"}
+                        quality={85}
                       />
                       {nextImg && isTransitioning && (
                         <Image
@@ -127,6 +140,8 @@ const Home = () => {
                             animation: isTransitioning ? 'fadeScale 2s ease-in-out forwards' : 'none'
                           }}
                           sizes="(max-width: 768px) 100vw, 33vw"
+                          loading="lazy"
+                          quality={85}
                           onLoad={(e) => {
                             // Força o fade in após carregar
                             const target = e.target as HTMLElement;
@@ -161,6 +176,8 @@ const Home = () => {
                           isTransitioning ? 'opacity-0 scale-110 blur-sm duration-1000' : 'opacity-100 scale-100 blur-0 duration-1000'
                         }`}
                         sizes="(max-width: 768px) 100vw, 50vw"
+                        loading="lazy"
+                        quality={85}
                       />
                       {nextImg && isTransitioning && (
                         <Image
@@ -172,6 +189,8 @@ const Home = () => {
                             animation: isTransitioning ? 'fadeScale 2s ease-in-out forwards' : 'none'
                           }}
                           sizes="(max-width: 768px) 100vw, 50vw"
+                          loading="lazy"
+                          quality={85}
                           onLoad={(e) => {
                             // Força o fade in após carregar
                             const target = e.target as HTMLElement;

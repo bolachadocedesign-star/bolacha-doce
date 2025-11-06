@@ -65,7 +65,8 @@ export function ImageGallery({ imagePaths, alt, className = '' }: ImageGalleryPr
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            unoptimized
+            loading="lazy"
+            quality={85}
             onError={() => handleImageError(path)}
           />
         </div>

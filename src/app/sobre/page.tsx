@@ -21,7 +21,7 @@ const Sobre = () => {
                 alt="Bolacha Doce - Criando e imprimindo amor desde 2012"
                 fill
                 className="object-contain"
-                unoptimized
+                priority
               />
             </div>
             
