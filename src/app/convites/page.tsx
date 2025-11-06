@@ -34,22 +34,22 @@ const Convites = () => {
       <WhatsAppButton />
       
       {/* Hero Banner */}
-      <section className="pt-40 pb-16 bg-primary text-white">
-        <div className="container mx-auto px-6 text-center">
-          <h1 className="font-serif text-4xl tracking-[0.2em] uppercase mb-4">
+      <section className="pt-24 sm:pt-32 md:pt-40 pb-12 sm:pb-16 bg-primary text-white">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
+          <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl tracking-[0.2em] uppercase mb-3 sm:mb-4">
             Explore Nossos Convites
           </h1>
-          <p className="text-sm tracking-[0.2em] uppercase mb-6">
+          <p className="text-xs sm:text-sm tracking-[0.2em] uppercase mb-4 sm:mb-6">
             Criações e produções exclusivas feitas com amor
           </p>
-          <Heart className="w-8 h-8 mx-auto" />
+          <Heart className="w-6 h-6 sm:w-8 sm:h-8 mx-auto" />
         </div>
       </section>
       
       {/* Filters */}
-      <section className="py-8 bg-background border-b border-border">
-        <div className="container mx-auto px-6">
-          <div className="flex items-center justify-center gap-16">
+      <section className="py-6 sm:py-8 bg-background border-b border-border">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 md:gap-12 lg:gap-16">
             <div className="relative">
               <button 
                 onClick={() => setEstilosOpen(!estilosOpen)}
@@ -58,7 +58,7 @@ const Convites = () => {
                 Estilos <ChevronDown className="w-4 h-4" />
               </button>
               {estilosOpen && (
-                <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg p-4 min-w-[200px] z-50">
+                <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg p-4 min-w-[180px] sm:min-w-[200px] z-50">
                   <label className="flex items-center gap-2 mb-2 text-sm hover:text-primary cursor-pointer">
                     <input type="radio" name="estilo" className="text-primary" />
                     <span>Moderno</span>
@@ -79,7 +79,7 @@ const Convites = () => {
                 Acabamentos <ChevronDown className="w-4 h-4" />
               </button>
               {acabamentosOpen && (
-                <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg p-4 min-w-[200px] z-50">
+                <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg p-4 min-w-[180px] sm:min-w-[200px] z-50">
                   <label className="flex items-center gap-2 mb-2 text-sm hover:text-primary cursor-pointer">
                     <input type="radio" name="acabamento" />
                     <span>Lacre de Cera</span>
@@ -96,7 +96,7 @@ const Convites = () => {
                 Cores <ChevronDown className="w-4 h-4" />
               </button>
               {coresOpen && (
-                <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg p-4 min-w-[200px] z-50">
+                <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg p-4 min-w-[180px] sm:min-w-[200px] z-50">
                   <label className="flex items-center gap-2 mb-2 text-sm hover:text-primary cursor-pointer">
                     <input type="radio" name="cor" />
                     <span>Verde</span>
@@ -117,9 +117,9 @@ const Convites = () => {
       </section>
       
       {/* Gallery Grid */}
-      <section className="py-20 px-6">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
         <div className="container mx-auto max-w-6xl">
-          <div className="grid grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
             {displayedConvites.map((convite) => (
               <div key={convite.id} className="relative group overflow-hidden rounded-lg aspect-square">
                 <Image

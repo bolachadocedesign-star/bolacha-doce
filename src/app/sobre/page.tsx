@@ -12,9 +12,9 @@ const Sobre = () => {
       <Header />
       <WhatsAppButton />
       
-      <section className="pt-40 pb-20 px-6">
+      <section className="pt-24 sm:pt-32 md:pt-40 pb-12 sm:pb-16 md:pb-20 px-4 sm:px-6">
         <div className="container mx-auto max-w-6xl">
-          <div className="grid md:grid-cols-2 gap-16 mb-20">
+          <div className="grid md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 mb-12 sm:mb-16 md:mb-20">
             <div className="aspect-square rounded-lg overflow-hidden relative">
               <Image
                 src="/gifs/logo_bolacha_doce_optimized.gif"
@@ -31,15 +31,15 @@ const Sobre = () => {
                 <p className="text-sm leading-relaxed">
                   Trabalhamos com um layout e ilustrações exclusivas e personalizadas para cada evento, criaremos tudo do zero seguindo os seus gostos!
                 </p>
-              </div>
-              
+            </div>
+            
               <div className="flex items-start gap-4">
                 <MessageCircle className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
                 <p className="text-sm leading-relaxed">
                   Com atendimento dedicado e individualizado, estaremos ao seu lado em cada etapa, desde o momento de escolher cada detalhe do convite dos seus sonhos até o dia do evento, garantindo que tudo seja perfeito e inesquecível.
                 </p>
-              </div>
-              
+            </div>
+            
               <div className="flex items-start gap-4">
                 <Heart className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
                 <p className="text-sm leading-relaxed">
@@ -68,7 +68,7 @@ const Sobre = () => {
               <p className="text-sm leading-relaxed max-w-2xl mx-auto text-foreground">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five
               </p>
-            </div>
+          </div>
           </div>*/}
         </div>
       </section>

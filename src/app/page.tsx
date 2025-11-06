@@ -52,27 +52,27 @@ const Home = () => {
       <WhatsAppButton />
       
       {/* Hero Section */}
-      <section className="pt-40 pb-20 px-6">
+      <section className="pt-24 sm:pt-32 md:pt-40 pb-12 sm:pb-16 md:pb-20 px-4 sm:px-6">
         <div className="container mx-auto">
-          <div className="flex items-center justify-between max-w-5xl mx-auto">
-            <div className="flex-1">
-              <h1 className="font-serif text-9xl tracking-wider text-beige-rose leading-none">
+          <div className="flex flex-col md:flex-row items-center md:items-center justify-between max-w-5xl mx-auto gap-8 md:gap-0">
+            <div className="flex-1 w-full md:w-auto text-center md:text-left">
+              <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl tracking-wider text-beige-rose leading-none">
                 AM<br className="block mb-0.5" />OR<br />
-                <span className="text-primary text-5xl block mb-1">+DESIGN</span>
+                <span className="text-primary text-2xl sm:text-3xl md:text-4xl lg:text-5xl block mb-1">+DESIGN</span>
               </h1>
             </div>
             
-            <div className="flex-1 text-right space-y-4">
-              <h2 className="font-serif text-2xl font-semibold tracking-wide text-foreground">
+            <div className="flex-1 w-full md:w-auto text-center md:text-right space-y-3 sm:space-y-4">
+              <h2 className="font-serif text-lg sm:text-xl md:text-2xl font-semibold tracking-wide text-foreground">
                 AMOR É O CONVITE.
               </h2>
-              <h3 className="font-serif text-xl tracking-wide text-foreground">
+              <h3 className="font-serif text-base sm:text-lg md:text-xl tracking-wide text-foreground">
                 E É NO CONVITE QUE TUDO COMEÇA.
               </h3>
-              <p className="font-serif text-lg tracking-widest text-primary uppercase">
+              <p className="font-serif text-sm sm:text-base md:text-lg tracking-widest text-primary uppercase">
                 Identidade visual e papelaria exclusivas.
               </p>
-              <p className="text-sm tracking-widest text-muted-foreground uppercase">
+              <p className="text-xs sm:text-sm tracking-widest text-muted-foreground uppercase">
                 Criando e imprimindo amor desde 2012
               </p>
             </div>
@@ -81,18 +81,18 @@ const Home = () => {
       </section>
       
       {/* Keywords Section */}
-      <section className="py-8 px-6 bg-muted/30">
+      <section className="py-6 sm:py-8 px-4 sm:px-6 bg-muted/30">
         <div className="container mx-auto">
-          <p className="text-center text-xs tracking-[0.3em] text-muted-foreground uppercase">
+          <p className="text-center text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-muted-foreground uppercase">
             design • atendimento exclusivo • personalizado • qualidade premium • feito com amor
           </p>
         </div>
       </section>
       
       {/* Gallery Grid */}
-      <section className="py-20 px-6">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
         <div className="container mx-auto max-w-6xl">
-          <div className="grid grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
             {[0, 1, 2].map((index) => {
               const currentImg = currentImages[index];
               const nextImg = nextImages[index];
@@ -137,7 +137,7 @@ const Home = () => {
               );
             })}
           </div>
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             {[3, 4].map((index) => {
               const currentImg = currentImages[index];
               const nextImg = nextImages[index];
@@ -194,9 +194,9 @@ const Home = () => {
       </section>
       
       {/* Features Section */}
-      <section className="py-16 bg-primary text-white">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-4 gap-12 max-w-5xl mx-auto">
+      <section className="py-12 sm:py-16 bg-primary text-white">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12 max-w-5xl mx-auto">
             <div className="text-center">
               <Pencil className="w-12 h-12 mx-auto mb-4" />
               <h3 className="font-serif text-sm tracking-[0.2em] uppercase">Design<br/>Exclusivo</h3>
@@ -218,9 +218,9 @@ const Home = () => {
       </section>
       
       {/* Testimonials */}
-      <section className="py-20 px-6 bg-background">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-background">
         <div className="container mx-auto max-w-5xl">
-          <div className="grid md:grid-cols-2 gap-12">
+          <div className="grid md:grid-cols-2 gap-8 sm:gap-12">
             <div className="space-y-4">
               <p className="text-sm leading-relaxed text-foreground">
                 Ei Ju (e equipe da Bolacha)! Muito obrigada por tudo! Vocês foram incríveis! De todos os mínimos detalhes vocês cuidaram! Tudo impecável! Muito obrigada de coração! Desculpa por qualquer coisa, especialmente pelos atrasos, pela correria, enfim! Agradeço demais pela paciência também! MUITO sucesso pra vocês! Vocês merecem todo reconhecimento, de BH, do Brasil e do mundo!

@@ -3,18 +3,18 @@ import Link from 'next/link';
 
 export function Footer() {
   return (
-    <footer className="bg-beige-rose text-foreground py-8 mt-16">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+    <footer className="bg-beige-rose text-foreground py-6 sm:py-8 mt-12 sm:mt-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-center">
           <div className="text-center md:text-left">
             <Link href="/">
-              <Image
-                src="/images/bolacha-doce-logo.png"
+            <Image
+              src="/images/bolacha-doce-logo.png"
                 alt="Bolacha Doce"
-                width={120}
-                height={120}
-                className="mx-auto md:mx-0 mb-4"
-              />
+              width={120}
+              height={120}
+              className="mx-auto md:mx-0 mb-4"
+            />
             </Link>
             <p className="text-sm font-medium">
               criando e imprimindo amor • desde 2012

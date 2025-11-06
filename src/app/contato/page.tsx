@@ -59,20 +59,20 @@ ${formData.mensagem || 'Sem mensagem'}`;
       <Header />
       <WhatsAppButton />
       
-      <section className="pt-40 pb-20 px-6">
+      <section className="pt-24 sm:pt-32 md:pt-40 pb-12 sm:pb-16 md:pb-20 px-4 sm:px-6">
         <div className="container mx-auto max-w-4xl">
-          <div className="text-center mb-16">
-            <h1 className="font-serif text-5xl tracking-[0.2em] uppercase mb-6 text-primary">
+          <div className="text-center mb-10 sm:mb-12 md:mb-16">
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl tracking-[0.2em] uppercase mb-4 sm:mb-6 text-primary">
               Contato
             </h1>
-            <p className="text-lg leading-relaxed text-foreground">
-              Reserve um espaço no seu dia para falar sobre você e seus planos<br />
-              e descobrir um universo criativo de possibilidades.
+            <p className="text-base sm:text-lg leading-relaxed text-foreground px-2">
+              Reserve um espaço no seu dia para falar sobre você e seus planos<br className="hidden sm:block" />
+              <span className="sm:hidden"> </span>e descobrir um universo criativo de possibilidades.
             </p>
           </div>
           
-          <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 max-w-2xl mx-auto">
+            <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
               <div>
                 <Input 
                   name="nome"
@@ -141,8 +141,8 @@ ${formData.mensagem || 'Sem mensagem'}`;
             </div>
           </form>
           
-          <div className="mt-20 text-center">
-            <h2 className="font-serif text-2xl tracking-[0.2em] uppercase mb-6 text-foreground">
+          <div className="mt-12 sm:mt-16 md:mt-20 text-center">
+            <h2 className="font-serif text-xl sm:text-2xl tracking-[0.2em] uppercase mb-4 sm:mb-6 text-foreground">
               Belo Horizonte • MG
             </h2>
           </div>
