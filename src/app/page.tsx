@@ -56,10 +56,17 @@ const Home = () => {
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row items-center md:items-center justify-between max-w-5xl mx-auto gap-8 md:gap-0">
             <div className="flex-1 w-full md:w-auto text-center md:text-left">
-              <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl tracking-wider text-beige-rose leading-none">
-                AM<br className="block mb-0.5" />OR<br />
-                <span className="text-primary text-2xl sm:text-3xl md:text-4xl lg:text-5xl block mb-1">+DESIGN</span>
-              </h1>
+              <div className="relative inline-block w-full max-w-[300px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px] xl:max-w-[700px]">
+                <Image
+                  src="/images/amor+dsg-bolacha-doce.png"
+                  alt="AMOR +DESIGN - Bolacha Doce"
+                  width={700}
+                  height={300}
+                  className="w-full h-auto"
+                  priority
+                  unoptimized
+                />
+              </div>
             </div>
             
             <div className="flex-1 w-full md:w-auto text-center md:text-right space-y-3 sm:space-y-4">
