@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { GTMProvider } from "@/components/GTMProvider";
-import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: {
-    default: "Bolacha Doce - Convites Personalizados",
+    default: "Convites Personalizados BH | Bolacha Doce - Aquarela Digital",
     template: "%s | Bolacha Doce"
   },
-  description: "Criamos convites personalizados para casamentos, aniversários e eventos especiais. Design único, qualidade excepcional e preço justo. Transforme seu evento em uma lembrança eterna.",
+  description: "Criamos convites personalizados únicos em Belo Horizonte. Aquarela digital, design exclusivo e acabamentos especiais para casamentos, aniversários e eventos. Orçamento sem compromisso.",
   keywords: [
-    "convites personalizados",
-    "convites de casamento",
-    "convites de aniversário",
-    "convites elegantes",
-    "design de convites",
-    "eventos especiais",
+    "convites personalizados BH",
+    "convites casamento Belo Horizonte", 
+    "aquarela digital convites",
+    "convites artesanais",
+    "papelaria casamento BH",
+    "convites exclusivos",
+    "design convites personalizados",
     "Bolacha Doce"
   ],
   authors: [{ name: "Bolacha Doce" }],
@@ -34,8 +33,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt_BR",
     url: "https://bolachadoce.com.br",
-    title: "Bolacha Doce - Convites Personalizados",
-    description: "Criamos convites personalizados para casamentos, aniversários e eventos especiais. Design único, qualidade excepcional e preço justo.",
+    title: "Convites Personalizados BH | Bolacha Doce - Aquarela Digital",
+    description: "Criamos convites personalizados únicos em Belo Horizonte. Aquarela digital, design exclusivo e acabamentos especiais para casamentos, aniversários e eventos.",
     siteName: "Bolacha Doce",
     images: [
       {
@@ -48,8 +47,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bolacha Doce - Convites Personalizados",
-    description: "Criamos convites personalizados para casamentos, aniversários e eventos especiais.",
+    title: "Convites Personalizados BH | Bolacha Doce",
+    description: "Criamos convites personalizados únicos em Belo Horizonte. Aquarela digital e design exclusivo.",
     images: ["/images/bolacha-doce-logo.png"],
   },
   robots: {
@@ -163,20 +162,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-gotham">
-        <GTMProvider>
-          {children}
-          <Toaster 
-            position="top-right"
-            toastOptions={{
-              duration: 4000,
-              style: {
-                background: '#fce6d4',
-                color: '#5f4b3b',
-                border: '1px solid #5f4b3b',
-              },
-            }}
-          />
-        </GTMProvider>
+        {children}
       </body>
     </html>
   );

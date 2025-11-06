@@ -1,155 +1,81 @@
-import { Metadata } from 'next';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Sobre a Bolacha Doce | Processo Criativo de Convites Personalizados BH',
-  description: 'Conheça Julia e o processo criativo da Bolacha Doce. Criamos convites personalizados únicos em Belo Horizonte com aquarela digital e acabamentos especiais. Transformamos sua história em arte.',
-  keywords: [
-    'sobre Bolacha Doce',
-    'Julia designer convites',
-    'processo criativo convites',
-    'aquarela digital BH',
-    'história Bolacha Doce',
-    'designer convites Belo Horizonte',
-    'ateliê convites personalizados'
-  ],
-  openGraph: {
-    title: 'Sobre a Bolacha Doce | Processo Criativo de Convites Personalizados BH',
-    description: 'Conheça Julia e o processo criativo da Bolacha Doce. Criamos convites personalizados únicos em Belo Horizonte com aquarela digital e acabamentos especiais.',
-    images: [
-      {
-        url: '/images/bolacha-doce-logo.png',
-        width: 1200,
-        height: 630,
-        alt: 'Sobre a Bolacha Doce - Processo Criativo de Convites',
-      }
-    ],
-    locale: 'pt_BR',
-    type: 'website',
-  },
-  alternates: {
-    canonical: 'https://bolachadoce.com.br/sobre',
-  },
-};
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { Pencil, MessageCircle, Heart } from "lucide-react";
+import Image from "next/image";
 
-export default function Sobre() {
+const Sobre = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background font-sans">
       <Header />
+      <WhatsAppButton />
       
-      <main className="py-16 px-4">
-        <div className="max-w-6xl mx-auto">
-          {/* Hero Section */}
-          <div className="text-center mb-16">
-            <div className="inline-block bg-[#fce6d4] px-8 py-4 rounded-full mb-8">
-              <span className="text-2xl font-bold text-[#5f4b3b]">Sobre</span>
+      <section className="pt-40 pb-20 px-6">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid md:grid-cols-2 gap-16 mb-20">
+            <div className="aspect-square rounded-lg overflow-hidden relative">
+              <Image
+                src="/gifs/logo_bolacha_doce_optimized.gif"
+                alt="Bolacha Doce - Criando e imprimindo amor desde 2012"
+                fill
+                className="object-contain"
+                unoptimized
+              />
             </div>
             
-            <h1 className="text-4xl lg:text-6xl font-bold text-[#5f4b3b] mb-6">
-              Sobre a Bolacha Doce - Processo Criativo de Convites Personalizados
-            </h1>
-          </div>
-          
-          {/* Processo Steps */}
-          <div className="space-y-12">
-            {/* Primeiro passo */}
-            <div className="flex flex-col lg:flex-row items-center gap-8">
-              <div className="w-full lg:w-1/3">
-                <div className="bg-gradient-to-br from-[#fce6d4] to-[#5f4b3b] p-8 rounded-2xl text-center text-white shadow-lg">
-                  <h3 className="text-xl font-bold leading-relaxed">
-                    Produção<br/>e<br/>criatividade
-                  </h3>
-                </div>
-              </div>
-              <div className="hidden lg:block w-1/3 h-1 bg-[#5f4b3b] rounded-full"></div>
-              <div className="w-full lg:w-1/3 text-center lg:text-left">
-                <p className="text-lg text-[#5f4b3b]">
-                  Cada convite é uma obra de arte única, criada com criatividade e atenção aos detalhes.
+            <div className="space-y-8 flex flex-col justify-center">
+              <div className="flex items-start gap-4">
+                <Pencil className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
+                <p className="text-sm leading-relaxed">
+                  Trabalhamos com um layout e ilustrações exclusivas e personalizadas para cada evento, criaremos tudo do zero seguindo os seus gostos!
                 </p>
               </div>
-            </div>
-            
-            {/* Segundo passo */}
-            <div className="flex flex-col lg:flex-row-reverse items-center gap-8">
-              <div className="w-full lg:w-1/3">
-                <div className="bg-gradient-to-br from-[#5f4b3b] to-[#4a3a2f] p-8 rounded-2xl text-center text-white shadow-lg">
-                  <h3 className="text-xl font-bold leading-relaxed">
-                    O que faz<br/>sua data<br/>ser única
-                  </h3>
-                </div>
-              </div>
-              <div className="hidden lg:block w-1/3 h-1 bg-[#5f4b3b] rounded-full"></div>
-              <div className="w-full lg:w-1/3 text-center lg:text-right">
-                <p className="text-lg text-[#5f4b3b]">
-                  Personalizamos cada detalhe para refletir a personalidade e o estilo do seu evento.
+              
+              <div className="flex items-start gap-4">
+                <MessageCircle className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
+                <p className="text-sm leading-relaxed">
+                  Com atendimento dedicado e individualizado, estaremos ao seu lado em cada etapa, desde o momento de escolher cada detalhe do convite dos seus sonhos até o dia do evento, garantindo que tudo seja perfeito e inesquecível.
                 </p>
               </div>
-            </div>
-            
-            {/* Terceiro passo */}
-            <div className="flex flex-col lg:flex-row items-center gap-8">
-              <div className="w-full lg:w-1/3">
-                <div className="bg-gradient-to-br from-[#fce6d4] to-[#5f4b3b] p-8 rounded-2xl text-center text-white shadow-lg">
-                  <h3 className="text-xl font-bold leading-relaxed">
-                    Como nós<br/>vamos<br/>criar uma<br/>lembrança<br/>eterna
-                  </h3>
-                </div>
-              </div>
-              <div className="hidden lg:block w-1/3 h-1 bg-[#5f4b3b] rounded-full"></div>
-              <div className="w-full lg:w-1/3 text-center lg:text-left">
-                <p className="text-lg text-[#5f4b3b]">
-                  Utilizamos materiais de alta qualidade e técnicas artesanais para criar lembranças duradouras.
-                </p>
-              </div>
-            </div>
-            
-            {/* Quarto passo */}
-            <div className="flex flex-col lg:flex-row-reverse items-center gap-8">
-              <div className="w-full lg:w-1/3">
-                <div className="bg-gradient-to-br from-[#5f4b3b] to-[#4a3a2f] p-8 rounded-2xl text-center text-white shadow-lg">
-                  <h3 className="text-xl font-bold leading-relaxed">
-                    Aqui é feito<br/>com carinho<br/>e amor<br/>para você
-                  </h3>
-                </div>
-              </div>
-              <div className="hidden lg:block w-1/3 h-1 bg-[#5f4b3b] rounded-full"></div>
-              <div className="w-full lg:w-1/3 text-center lg:text-right">
-                <p className="text-lg text-[#5f4b3b]">
-                  Cada projeto é tratado com carinho especial, como se fosse para nossa própria família.
-                </p>
-              </div>
-            </div>
-            
-            {/* Quinto passo */}
-            <div className="flex flex-col lg:flex-row items-center gap-8">
-              <div className="w-full lg:w-1/3">
-                <div className="bg-gradient-to-br from-[#fce6d4] to-[#5f4b3b] p-8 rounded-2xl text-center text-white shadow-lg">
-                  <h3 className="text-xl font-bold leading-relaxed">
-                    Conhecendo<br/>a cliente e<br/>colhendo<br/>suas idéias
-                  </h3>
-                </div>
-              </div>
-              <div className="hidden lg:block w-1/3 h-1 bg-[#5f4b3b] rounded-full"></div>
-              <div className="w-full lg:w-1/3 text-center lg:text-left">
-                <p className="text-lg text-[#5f4b3b]">
-                  Nossa abordagem é personalizada, começando com uma conversa para entender suas necessidades.
+              
+              <div className="flex items-start gap-4">
+                <Heart className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
+                <p className="text-sm leading-relaxed">
+                  Conte conosco para tornar seu casamento um verdadeiro conto de fadas! Será um prazer participar desse momento tão feliz!
                 </p>
               </div>
             </div>
           </div>
           
-          {/* CTA Button */}
-          <div className="text-center mt-16">
-            <button className="bg-[#5f4b3b] text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#4a3a2f] transition-colors duration-300 hover:scale-105 transform">
-              Quero conhecer melhor
-            </button>
-          </div>
+          {/* Julia Section */}
+         {/*  <div className="bg-beige-rose py-20 -mx-6 px-6">
+            <div className="container mx-auto max-w-4xl text-center">
+              <div className="w-64 h-64 rounded-full mx-auto mb-8 overflow-hidden relative">
+                <Image
+                  src="/images/Julia/bolacha-doce-julia.jpeg"
+                  alt="Julia Horta - Criadora da Bolacha Doce"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              
+              <h2 className="font-serif text-2xl tracking-[0.3em] uppercase mb-6 text-foreground">
+                Julia Horta
+              </h2>
+              
+              <p className="text-sm leading-relaxed max-w-2xl mx-auto text-foreground">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five
+              </p>
+            </div>
+          </div>*/}
         </div>
-      </main>
+      </section>
       
       <Footer />
     </div>
   );
-}
+};
 
+export default Sobre;
