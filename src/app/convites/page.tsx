@@ -4,10 +4,17 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { Button } from "@/components/ui/button";
-import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { ChevronDown, X } from "lucide-react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { convitesList } from "@/data/convitesList";
+import { 
+  estilosOptions, 
+  acabamentosOptions, 
+  coresOptions, 
+  matchesFilters 
+} from "@/data/filtersData";
 
 const Heart = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor">
@@ -19,14 +26,68 @@ const Convites = () => {
   const [estilosOpen, setEstilosOpen] = useState(false);
   const [acabamentosOpen, setAcabamentosOpen] = useState(false);
   const [coresOpen, setCoresOpen] = useState(false);
-  const [displayedCount, setDisplayedCount] = useState(6); // Mostrar 6 primeiros inicialmente
   
-  const displayedConvites = convitesList.slice(0, displayedCount);
-  const hasMore = displayedCount < convitesList.length;
+  // Filtros selecionados
+  const [selectedEstilo, setSelectedEstilo] = useState<string | undefined>();
+  const [selectedAcabamento, setSelectedAcabamento] = useState<string | undefined>();
+  const [selectedCor, setSelectedCor] = useState<string | undefined>();
+  
+  // Filtra os convites baseado nos filtros selecionados
+  const filteredConvites = useMemo(() => {
+    return convitesList.filter(convite => 
+      matchesFilters(convite.tags, selectedEstilo, selectedAcabamento, selectedCor)
+    );
+  }, [selectedEstilo, selectedAcabamento, selectedCor]);
+  
+  const [displayedCount, setDisplayedCount] = useState(6);
+  
+  // Refs para os dropdowns
+  const estilosRef = useRef<HTMLDivElement>(null);
+  const acabamentosRef = useRef<HTMLDivElement>(null);
+  const coresRef = useRef<HTMLDivElement>(null);
+  
+  // Fechar dropdowns ao clicar fora
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (estilosRef.current && !estilosRef.current.contains(event.target as Node)) {
+        setEstilosOpen(false);
+      }
+      if (acabamentosRef.current && !acabamentosRef.current.contains(event.target as Node)) {
+        setAcabamentosOpen(false);
+      }
+      if (coresRef.current && !coresRef.current.contains(event.target as Node)) {
+        setCoresOpen(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+  
+  // Reset displayedCount quando filtros mudam
+  useEffect(() => {
+    setDisplayedCount(6);
+  }, [selectedEstilo, selectedAcabamento, selectedCor]);
+  
+  const displayedConvites = filteredConvites.slice(0, displayedCount);
+  const hasMore = displayedCount < filteredConvites.length;
   
   const loadMore = () => {
-    setDisplayedCount(prev => Math.min(prev + 6, convitesList.length));
+    setDisplayedCount(prev => Math.min(prev + 6, filteredConvites.length));
   };
+  
+  const clearFilters = () => {
+    setSelectedEstilo(undefined);
+    setSelectedAcabamento(undefined);
+    setSelectedCor(undefined);
+    setEstilosOpen(false);
+    setAcabamentosOpen(false);
+    setCoresOpen(false);
+  };
+  
+  const hasActiveFilters = selectedEstilo || selectedAcabamento || selectedCor;
   
   return (
     <div className="min-h-screen bg-background font-sans">
@@ -50,107 +111,225 @@ const Convites = () => {
       <section className="py-6 sm:py-8 bg-background border-b border-border">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 md:gap-12 lg:gap-16">
-            <div className="relative">
+            {/* Estilos */}
+            <div className="relative" ref={estilosRef}>
               <button 
-                onClick={() => setEstilosOpen(!estilosOpen)}
-                className="font-serif text-sm tracking-[0.2em] uppercase flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+                onClick={() => {
+                  setEstilosOpen(!estilosOpen);
+                  setAcabamentosOpen(false);
+                  setCoresOpen(false);
+                }}
+                className={`font-serif text-sm tracking-[0.2em] uppercase flex items-center gap-2 transition-colors ${
+                  selectedEstilo 
+                    ? 'text-primary font-semibold' 
+                    : 'text-foreground hover:text-primary'
+                }`}
               >
-                Estilos <ChevronDown className="w-4 h-4" />
+                Estilos <ChevronDown className={`w-4 h-4 transition-transform ${estilosOpen ? 'rotate-180' : ''}`} />
               </button>
               {estilosOpen && (
-                <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg p-4 min-w-[180px] sm:min-w-[200px] z-50">
-                  <label className="flex items-center gap-2 mb-2 text-sm hover:text-primary cursor-pointer">
-                    <input type="radio" name="estilo" className="text-primary" />
-                    <span>Moderno</span>
-                  </label>
-                  <label className="flex items-center gap-2 mb-2 text-sm hover:text-primary cursor-pointer">
-                    <input type="radio" name="estilo" />
-                    <span>Aquarela</span>
-                  </label>
+                <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg p-4 min-w-[180px] sm:min-w-[200px] z-50 max-h-[300px] overflow-y-auto">
+                  <button
+                    onClick={() => {
+                      setSelectedEstilo(undefined);
+                      setEstilosOpen(false);
+                    }}
+                    className={`w-full text-left px-3 py-2 text-sm hover:bg-primary/10 rounded transition-colors ${
+                      !selectedEstilo ? 'bg-primary/20 font-semibold' : ''
+                    }`}
+                  >
+                    Todos os Estilos
+                  </button>
+                  {estilosOptions.map((estilo) => (
+                    <button
+                      key={estilo.id}
+                      onClick={() => {
+                        setSelectedEstilo(estilo.id);
+                        setEstilosOpen(false);
+                      }}
+                      className={`w-full text-left px-3 py-2 text-sm hover:bg-primary/10 rounded transition-colors ${
+                        selectedEstilo === estilo.id ? 'bg-primary/20 font-semibold' : ''
+                      }`}
+                    >
+                      {estilo.label}
+                    </button>
+                  ))}
                 </div>
               )}
             </div>
             
-            <div className="relative">
+            {/* Acabamentos */}
+            <div className="relative" ref={acabamentosRef}>
               <button 
-                onClick={() => setAcabamentosOpen(!acabamentosOpen)}
-                className="font-serif text-sm tracking-[0.2em] uppercase flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+                onClick={() => {
+                  setAcabamentosOpen(!acabamentosOpen);
+                  setEstilosOpen(false);
+                  setCoresOpen(false);
+                }}
+                className={`font-serif text-sm tracking-[0.2em] uppercase flex items-center gap-2 transition-colors ${
+                  selectedAcabamento 
+                    ? 'text-primary font-semibold' 
+                    : 'text-foreground hover:text-primary'
+                }`}
               >
-                Acabamentos <ChevronDown className="w-4 h-4" />
+                Acabamentos <ChevronDown className={`w-4 h-4 transition-transform ${acabamentosOpen ? 'rotate-180' : ''}`} />
               </button>
               {acabamentosOpen && (
-                <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg p-4 min-w-[180px] sm:min-w-[200px] z-50">
-                  <label className="flex items-center gap-2 mb-2 text-sm hover:text-primary cursor-pointer">
-                    <input type="radio" name="acabamento" />
-                    <span>Lacre de Cera</span>
-                  </label>
+                <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg p-4 min-w-[180px] sm:min-w-[200px] z-50 max-h-[300px] overflow-y-auto">
+                  <button
+                    onClick={() => {
+                      setSelectedAcabamento(undefined);
+                      setAcabamentosOpen(false);
+                    }}
+                    className={`w-full text-left px-3 py-2 text-sm hover:bg-primary/10 rounded transition-colors ${
+                      !selectedAcabamento ? 'bg-primary/20 font-semibold' : ''
+                    }`}
+                  >
+                    Todos os Acabamentos
+                  </button>
+                  {acabamentosOptions.map((acabamento) => (
+                    <button
+                      key={acabamento.id}
+                      onClick={() => {
+                        setSelectedAcabamento(acabamento.id);
+                        setAcabamentosOpen(false);
+                      }}
+                      className={`w-full text-left px-3 py-2 text-sm hover:bg-primary/10 rounded transition-colors ${
+                        selectedAcabamento === acabamento.id ? 'bg-primary/20 font-semibold' : ''
+                      }`}
+                    >
+                      {acabamento.label}
+                    </button>
+                  ))}
                 </div>
               )}
             </div>
             
-            <div className="relative">
+            {/* Cores */}
+            <div className="relative" ref={coresRef}>
               <button 
-                onClick={() => setCoresOpen(!coresOpen)}
-                className="font-serif text-sm tracking-[0.2em] uppercase flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+                onClick={() => {
+                  setCoresOpen(!coresOpen);
+                  setEstilosOpen(false);
+                  setAcabamentosOpen(false);
+                }}
+                className={`font-serif text-sm tracking-[0.2em] uppercase flex items-center gap-2 transition-colors ${
+                  selectedCor 
+                    ? 'text-primary font-semibold' 
+                    : 'text-foreground hover:text-primary'
+                }`}
               >
-                Cores <ChevronDown className="w-4 h-4" />
+                Cores <ChevronDown className={`w-4 h-4 transition-transform ${coresOpen ? 'rotate-180' : ''}`} />
               </button>
               {coresOpen && (
-                <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg p-4 min-w-[180px] sm:min-w-[200px] z-50">
-                  <label className="flex items-center gap-2 mb-2 text-sm hover:text-primary cursor-pointer">
-                    <input type="radio" name="cor" />
-                    <span>Verde</span>
-                  </label>
-                  <label className="flex items-center gap-2 mb-2 text-sm hover:text-primary cursor-pointer">
-                    <input type="radio" name="cor" />
-                    <span>Todas as Cores</span>
-                  </label>
+                <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg p-4 min-w-[180px] sm:min-w-[200px] z-50 max-h-[300px] overflow-y-auto">
+                  <button
+                    onClick={() => {
+                      setSelectedCor(undefined);
+                      setCoresOpen(false);
+                    }}
+                    className={`w-full text-left px-3 py-2 text-sm hover:bg-primary/10 rounded transition-colors ${
+                      !selectedCor ? 'bg-primary/20 font-semibold' : ''
+                    }`}
+                  >
+                    Todas as Cores
+                  </button>
+                  {coresOptions.map((cor) => (
+                    <button
+                      key={cor.id}
+                      onClick={() => {
+                        setSelectedCor(cor.id);
+                        setCoresOpen(false);
+                      }}
+                      className={`w-full text-left px-3 py-2 text-sm hover:bg-primary/10 rounded transition-colors ${
+                        selectedCor === cor.id ? 'bg-primary/20 font-semibold' : ''
+                      }`}
+                    >
+                      {cor.label}
+                    </button>
+                  ))}
                 </div>
               )}
             </div>
             
-            <Button variant="outline" className="font-serif text-sm tracking-[0.2em] uppercase">
-              Por Filtro
-            </Button>
+            {/* Botão Limpar Filtros */}
+            {hasActiveFilters && (
+              <Button 
+                variant="outline" 
+                onClick={clearFilters}
+                className="font-serif text-sm tracking-[0.2em] uppercase flex items-center gap-2"
+              >
+                <X className="w-4 h-4" />
+                Limpar Filtros
+              </Button>
+            )}
           </div>
+          
+          {/* Mostrar quantidade de resultados */}
+          {hasActiveFilters && (
+            <div className="text-center mt-4">
+              <p className="text-sm text-muted-foreground">
+                {filteredConvites.length} {filteredConvites.length === 1 ? 'convite encontrado' : 'convites encontrados'}
+              </p>
+            </div>
+          )}
         </div>
       </section>
       
       {/* Gallery Grid */}
       <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
         <div className="container mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
-            {displayedConvites.map((convite) => (
-              <div key={convite.id} className="relative group overflow-hidden rounded-lg aspect-square">
-                <Image
-                  src={convite.image}
-                  alt={convite.nome}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-beige-rose via-beige-rose/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="font-serif text-2xl text-foreground mb-2">{convite.nome}</h3>
-                    <p className="text-xs tracking-wider text-muted-foreground uppercase">
-                      {convite.tags}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          
-          {hasMore && (
-            <div className="text-center">
+          {filteredConvites.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground mb-4">Nenhum convite encontrado com os filtros selecionados.</p>
               <Button 
-                onClick={loadMore}
-                variant="outline" 
-                className="font-serif tracking-[0.2em] uppercase border-primary text-primary hover:bg-primary hover:text-white"
+                onClick={clearFilters}
+                variant="outline"
+                className="font-serif tracking-[0.2em] uppercase"
               >
-                +convites
+                Limpar Filtros
               </Button>
             </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
+                {displayedConvites.map((convite) => (
+                  <Link 
+                    key={convite.id} 
+                    href={`/convites/${convite.id}`}
+                    className="relative group overflow-hidden rounded-lg aspect-square block"
+                  >
+                    <Image
+                      src={convite.image}
+                      alt={convite.nome}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-beige-rose via-beige-rose/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 className="font-serif text-2xl text-foreground mb-2">{convite.nome}</h3>
+                        <p className="text-xs tracking-wider text-muted-foreground uppercase">
+                          {convite.tags}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              
+              {hasMore && (
+                <div className="text-center">
+                  <Button 
+                    onClick={loadMore}
+                    variant="outline" 
+                    className="font-serif tracking-[0.2em] uppercase border-primary text-primary hover:bg-primary hover:text-white"
+                  >
+                    +convites
+                  </Button>
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>

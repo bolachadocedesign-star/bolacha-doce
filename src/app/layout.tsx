@@ -66,6 +66,15 @@ export const metadata: Metadata = {
     google: "your-google-verification-code", // Substitua pelo código real do Google Search Console
   },
   manifest: "/manifest.json",
+  icons: {
+    icon: [
+      { url: "/images/bolacha-doce-logo.png", sizes: "32x32", type: "image/png" },
+      { url: "/images/bolacha-doce-logo.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [
+      { url: "/images/bolacha-doce-logo.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -76,8 +85,6 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-        <link rel="icon" type="image/png" href="/images/bolacha-doce-logo.png" />
-        <link rel="apple-touch-icon" href="/images/bolacha-doce-logo.png" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#fce6d4" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
